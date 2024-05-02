@@ -1,0 +1,7 @@
+{
+  "name": "app-hayPan",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
