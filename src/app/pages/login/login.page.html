@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title >Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="degradado">
+  <div class="centrado">
+    <ion-img src="assets/hay_pan.svg"> </ion-img>
+
+    <ion-item class="fondo input ion-margin-top" lines="none">
+      <ion-input label="Usuario" labelPlacement="floating" [(ngModel)]="mdl_usuario"></ion-input>
+    </ion-item>
+    <ion-item class="fondo input ion-margin-top" lines="none">
+      <ion-input type="password" label="Contraseña" labelPlacement="floating" [(ngModel)]="mdl_contrasena"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" class="input-amarillo ion-margin-top boton"(click)="navegar()"> Ingresar </ion-button>
+
+    <a routerLink="">¿Olvidaste tu contraseña?</a> |
+    <a routerLink="/registro">Registrar</a>
+  </div>
+</ion-content>

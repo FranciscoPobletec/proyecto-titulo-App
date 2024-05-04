@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="azul-oscuro">
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="degradado">
+  <div class="centrado">
+    <form>
+      <ion-item class="fondo input ion-margin-top" lines="none">
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input type="text" name="nombre" labelPlacement="floating" [(ngModel)]="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item class="fondo input ion-margin-top" lines="none">
+        <ion-label position="floating">Apellido Paterno</ion-label>
+        <ion-input type="text" name="apellidoP" labelPlacement="floating" [(ngModel)]="apellidoP"></ion-input>
+      </ion-item>
+
+      <ion-item class="fondo input ion-margin-top" lines="none">
+        <ion-label position="floating">Apellido Materno</ion-label>
+        <ion-input type="text" name="apellidoM" labelPlacement="floating" [(ngModel)]="apellidoM"></ion-input>
+      </ion-item>
+
+      <ion-item class="fondo input ion-margin-top" lines="none">
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input type="email" name="correo" labelPlacement="floating" [(ngModel)]="correo"></ion-input>
+      </ion-item>
+
+     
+      <ion-item class="fondo input ion-margin-top" lines="none">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" name="contrasenia"labelPlacement="floating"  [(ngModel)]="contrasenia"></ion-input>
+      </ion-item>
+
+      <ion-item class="fondo input ion-margin-top" lines="none">
+        <ion-label position="floating">confirmar Contraseña</ion-label>
+        <ion-input type="password" name="confirmarContrasena" labelPlacement="floating" [(ngModel)]="confirmarContrasena"></ion-input>
+      </ion-item>
+      <ion-item class="fondo input ion-margin-top" lines="none">
+        <ion-label position="floating">Teléfono</ion-label>
+        <ion-input type="tel" name="telefono" labelPlacement="floating" [(ngModel)]="telefono"></ion-input>
+      </ion-item>
+
+      <ion-item class="fondo input ion-margin-top" lines="none">
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input type="text" name="direccion" labelPlacement="floating" [(ngModel)]="direccion"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="input-confirmar ion-margin-top boton" (click)="registro()">Registrarse</ion-button>
+      <ion-button routerLink="/login" class="input-cancelar ion-margin-top boton" expand="block">Volver</ion-button>
+    </form>
+  </div>
+</ion-content>

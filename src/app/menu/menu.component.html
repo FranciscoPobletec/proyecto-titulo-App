@@ -1,0 +1,36 @@
+<ion-list>
+  <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+    <ion-item [routerLink]="[p.url]" routerDirection="root">
+      <ion-avatar slot="start">
+        <img src="assets/hay_pan.svg" alt="Avatar">
+      </ion-avatar>
+      <ion-icon slot="start" [name]="p.icon"></ion-icon>
+      <ion-label>{{p.title}}</ion-label>
+    </ion-item>
+  </ion-menu-toggle >
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="ruta-a-tu-imagen" alt="Avatar">
+    </ion-avatar>
+    <ion-label>Nombre de usuario</ion-label>
+  </ion-item>
+  <ion-item (click)="editar()">
+    <ion-icon slot="start" name="create"></ion-icon>
+    <ion-label>Editar</ion-label>
+  </ion-item>
+  <ion-item (click)="verHistorial()">
+    <ion-icon slot="start" name="time"></ion-icon>
+    <ion-label>Historial</ion-label>
+  </ion-item>
+  <ion-item (click)="verCarrito()">
+    <ion-icon slot="start" name="cart"></ion-icon>
+    <ion-label>Carrito</ion-label>
+  </ion-item>
+  <ion-item (click)="desconectar()">
+    <ion-icon slot="start" name="log-out"></ion-icon>
+    <ion-label>Desconectar</ion-label>
+  </ion-item>
+</ion-list>
