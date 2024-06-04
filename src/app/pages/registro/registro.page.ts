@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsuarioService } from 'src/app/services/usuario-service.service';
-
+import { RegistroService } from 'src/app/services/registro.service';
 
 @Component({
   selector: 'app-registro',
@@ -9,59 +8,46 @@ import { UsuarioService } from 'src/app/services/usuario-service.service';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-  nombre: string = '';
-  apellidoP: string = '';
-  apellidoM: string = '';
-  correo: string = '';
-  contrasenia: string = '';
-  telefono: string = '';
-  direccion: string = '';
-  confirmarContrasena: string = '';
+  usuario: any = {
+    username: '',
+    email: '',
+    password1: '',
+    password2: '',
+    first_name: '',
+    last_name: '',
+    apellido_materno: '',
+    direccion: '',
+    comuna: '', // comuna será el nombre ahora
+    rut: '',
+    phone: '',
+    cliente: true,
+    comerciante: false
+  };
 
-  isAlertOpen: boolean = false;
-  alertHeader: string = '';
-  alertMessage: string = '';
+  comunas: any[] = [];
 
-  constructor(private usuarioService: UsuarioService, private router: Router) { }
+  constructor(private registroService: RegistroService, private router: Router) { }
 
   ngOnInit() {
+    this.cargarComunas();
   }
 
-  mostrarAlerta(header: string, message: string) {
-    this.isAlertOpen = true;
-    this.alertHeader = header;
-    this.alertMessage = message;
+  cargarComunas() {
+    this.registroService.obtenerComunas().subscribe((data: any) => {
+      this.comunas = data;
+    });
   }
 
-  registro() {
-    if (!this.nombre || !this.correo || !this.contrasenia || !this.confirmarContrasena) {
-      this.mostrarAlerta('Campos incompletos', 'Por favor, complete todos los campos.');
-    } else if (this.contrasenia !== this.confirmarContrasena) {
-      this.mostrarAlerta('Contraseñas no coinciden', 'Las contraseñas no coinciden.');
-    } else if (this.contrasenia.length < 8) {
-      this.mostrarAlerta('Contraseña débil', 'La contraseña debe tener al menos 8 caracteres.');
-    } else {
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!emailRegex.test(this.correo)) {
-        this.mostrarAlerta('Correo electrónico inválido', 'El correo electrónico ingresado no es válido.');
-      } else {
-        const usuario = {
-          nombreUsuario: this.nombre,
-          correoElectronico: this.correo,
-          contrasena: this.contrasenia,
-        };
-
-        this.usuarioService.agregarUsuario(usuario);
-
-        // Limpiar los campos del formulario
-        this.nombre = '';
-        this.correo = '';
-        this.contrasenia = '';
-        this.confirmarContrasena = '';
-
-        // Redirigir a la página principal
-        this.router.navigate(['/login']);
-      }
+  async registrar() {
+    try {
+      const response = await this.registroService.registrarUsuario(this.usuario).toPromise();
+      console.log('Usuario registrado:', response);
+      // Redirigir al login después del registro exitoso
+      this.router.navigate(['/login']);
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      // Mostrar un mensaje de error al usuario
+      alert('Error en el registro. Por favor, inténtelo nuevamente.');
     }
   }
 }

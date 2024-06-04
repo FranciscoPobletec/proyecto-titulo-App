@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
   selector: 'app-principal',
@@ -7,20 +8,40 @@ import { Router } from '@angular/router';
   styleUrls: ['./principal.page.scss'],
 })
 export class PrincipalPage implements OnInit {
-
+  productos: any[] = [];
   usuario: string = '';
-  contrasena: string = '';
+  token: string = '';
   color: string = 'light';
   mostrarMenu = true;
-  constructor(private router: Router) { }
+
+  constructor(private router: Router, private productoService: ProductoService) { }
 
   ngOnInit() {
-    let parametros = this.router.getCurrentNavigation();
-
-    if (parametros?.extras.state) {
-      this.usuario = parametros?.extras.state['user'];
-      this.contrasena = parametros?.extras.state['pass'];
+    // Recuperar datos del usuario y token del almacenamiento local
+    this.token = localStorage.getItem('token') || '';
+    this.usuario = JSON.parse(localStorage.getItem('user') || '{}').username;
+    
+    // Si el usuario o el token no están disponibles, redirigir al login
+    if (!this.usuario || !this.token) {
+      this.router.navigate(['/login']);
+      return;
     }
+
+    // Realizar la consulta de productos con los datos del usuario y token
+    this.obtenerProductos();
+  }
+
+  obtenerProductos() {
+    this.productoService.obtenerProductos(this.token).subscribe((data: any) => {
+      // Asigna los productos recuperados a la variable 'productos'
+      this.productos = data;
+    }, (error) => {
+      console.error('Error al obtener productos:', error);
+      // Manejar el error (por ejemplo, redirigir al login si el token es inválido)
+      if (error.status === 401) {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   fav() {
