@@ -24,6 +24,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'cart',
+    redirectTo: 'cart',
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     redirectTo: 'e404',
     pathMatch: 'full'
@@ -43,6 +48,10 @@ const routes: Routes = [
   {
     path: 'e404',
     loadChildren: () => import('./pages/e404/e404.module').then( m => m.E404PageModule)
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./pages/cart/cart.module').then( m => m.CartPageModule)
   },
 ];
 

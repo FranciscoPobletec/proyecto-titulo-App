@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Carrito</ion-title>
+  </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      Usuario: {{ usuario }}
+    </ion-item>
+    <ion-item *ngFor="let product of selectedProducts">
+      <ion-card>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <ion-img [src]="product.imagen" alt="{{ product.nombre }}"></ion-img>
+            </ion-col>
+            <ion-col size="9">
+              <ion-card-header>
+                <ion-card-title>{{ product.nombre }}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <p><strong>Descripción:</strong> {{ product.descripcion }}</p>
+                <p><strong>Cantidad seleccionada:</strong> {{ product.cantidadSeleccionada }}</p>
+                <p><strong>Precio:</strong> {{ product.precio }}</p>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" >Confirmar Reserva</ion-button>
+  <ion-button expand="full" (click)="clearCart()">Vaciar carrito</ion-button>
+</ion-content>

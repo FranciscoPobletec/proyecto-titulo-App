@@ -3,9 +3,8 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-  
     <ion-buttons slot="end">
-      <ion-button (click)="fav()"> 
+      <ion-button (click)="fav()">
         <ion-icon [color]="color" slot="icon-only" name="heart"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -15,17 +14,6 @@
 <ion-content [fullscreen]="true" class="degradado">
   <menu></menu>
   <h1 class="titulo">Bienvenido {{ usuario }}</h1>
-
-  <ion-card class="degradado">
-    <img alt="Silhouette of mountains" src="assets/IA.svg" />
-    <ion-card-header>
-      <ion-card-title>Noticias IA</ion-card-title>
-    </ion-card-header>
-  
-    <ion-card-content>
-      Conoces las últimas novedades.
-    </ion-card-content>
-  </ion-card>
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">principal</ion-title>
@@ -35,15 +23,29 @@
   <ion-list>
     <ion-item *ngFor="let producto of productos">
       <ion-card>
-        <img [src]="producto.imagen" alt="{{ producto.nombre }}" />
-        <ion-card-header>
-          <ion-card-title>{{ producto.nombre }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
-          <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
-          <p><strong>Precio:</strong> {{ producto.precio }}</p>
-        </ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <img [src]="producto.imagen" alt="{{ producto.nombre }}" style="width: 100%; height: auto;" />
+            </ion-col>
+            <ion-col size="9">
+              <ion-card-header>
+                <ion-card-title>{{ producto.nombre }}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+                <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+                <p><strong>Precio:</strong> {{ producto.precio }}</p>
+                <p><strong>Cantidad:</strong>
+                  <ion-select [(ngModel)]="producto.selectedQuantity" placeholder="Seleccionar cantidad">
+                    <ion-select-option *ngFor="let cantidad of getStockOptions(producto.cantidad)" [value]="cantidad">{{ cantidad }}</ion-select-option>
+                  </ion-select>
+                </p>
+                <ion-button (click)="addToCart(producto)">Agregar al carrito</ion-button>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card>
     </ion-item>
   </ion-list>

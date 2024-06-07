@@ -31,6 +31,10 @@ export class PrincipalPage implements OnInit {
     this.obtenerProductos();
   }
 
+  getStockOptions(stock: number): number[] {
+    return Array.from({ length: stock }, (_, i) => i + 1);
+  }
+
   obtenerProductos() {
     this.productoService.obtenerProductos(this.token).subscribe((data: any) => {
       // Asigna los productos recuperados a la variable 'productos'
@@ -50,5 +54,25 @@ export class PrincipalPage implements OnInit {
     } else {
       this.color = 'light';
     }
+  }
+
+  addToCart(product: any) {
+    if (product.selectedQuantity > 0) {
+      const productToCart = {
+        ...product,
+        cantidadSeleccionada: product.selectedQuantity
+      };
+      const storedProducts = localStorage.getItem('selectedProducts');
+      const selectedProducts = storedProducts ? JSON.parse(storedProducts) : [];
+      selectedProducts.push(productToCart);
+      localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+      this.router.navigate(['/cart']);
+    } else {
+      alert('Por favor, seleccione una cantidad válida.');
+    }
+  }
+
+  verCarrito() {
+    this.router.navigate(['/cart']);
   }
 }

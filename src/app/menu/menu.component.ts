@@ -1,22 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { DbService } from '../services/db.service';
+import { UsuarioService } from '../services/usuario-service.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
-export class MenuComponent  {
+export class MenuComponent implements OnInit {
   pages = [
-    { title: 'principal', url: '/principal', icon: 'principal' },
+    { title: 'Principal', url: '/principal', icon: 'home' },
   ];
+  usuario: string = '';
+  constructor(private router: Router, private dbService: DbService,private usuarioService: UsuarioService) {}
 
-  constructor(private router: Router ,private dbService: DbService) {}
-
-
+  ngOnInit() {
+    const user = localStorage.getItem('user');
+    this.usuario = user ? JSON.parse(user).username : '';
+  }
   // Define tus funciones aquí
-  editar() {
+  perfil() {
     // Código para la función editar
   }
 
@@ -25,7 +29,7 @@ export class MenuComponent  {
   }
 
   verCarrito() {
-    // Código para la función verCarrito
+  this.router.navigate(['cart']);
   }
 
   desconectar() {
