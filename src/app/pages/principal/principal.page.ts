@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductoService } from 'src/app/services/producto.service';
+import { UsuarioService } from 'src/app/services/usuario-service.service';
 
 @Component({
   selector: 'app-principal',
@@ -9,43 +10,64 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class PrincipalPage implements OnInit {
   productos: any[] = [];
+  filteredProductos: any[] = [];
+  searchQuery: string = '';
   usuario: string = '';
   token: string = '';
   color: string = 'light';
-  mostrarMenu = true;
 
-  constructor(private router: Router, private productoService: ProductoService) { }
+  constructor(
+    private router: Router,
+    private productoService: ProductoService,
+    private usuarioService: UsuarioService
+  ) {}
 
   ngOnInit() {
-    // Recuperar datos del usuario y token del almacenamiento local
     this.token = localStorage.getItem('token') || '';
     this.usuario = JSON.parse(localStorage.getItem('user') || '{}').username;
-    
-    // Si el usuario o el token no están disponibles, redirigir al login
     if (!this.usuario || !this.token) {
       this.router.navigate(['/login']);
       return;
     }
 
-    // Realizar la consulta de productos con los datos del usuario y token
-    this.obtenerProductos();
+    this.actualizarPrincipal();
   }
-
+  actualizarPrincipal() {
+    this.obtenerProductos();
+    this.cargarClientes();
+  }
   getStockOptions(stock: number): number[] {
     return Array.from({ length: stock }, (_, i) => i + 1);
   }
 
   obtenerProductos() {
-    this.productoService.obtenerProductos(this.token).subscribe((data: any) => {
-      // Asigna los productos recuperados a la variable 'productos'
-      this.productos = data;
-    }, (error) => {
-      console.error('Error al obtener productos:', error);
-      // Manejar el error (por ejemplo, redirigir al login si el token es inválido)
-      if (error.status === 401) {
-        this.router.navigate(['/login']);
+    this.productoService.obtenerProductos(this.token).subscribe(
+      (data: any) => {
+        this.productos = data;
+        this.filteredProductos = data; 
+      },
+      (error) => {
+        console.error('Error al obtener productos:', error);
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        }
       }
-    });
+    );
+  }
+
+  cargarClientes() {
+    this.usuarioService.obtenerUsuarios().then(
+      (usuarios: any[]) => {
+        const clientes = usuarios.filter((usuario) => usuario.cliente);
+        localStorage.setItem('clientes', JSON.stringify(clientes));
+      },
+      (error) => {
+        console.error('Error al obtener usuarios:', error);
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        }
+      }
+    );
   }
 
   fav() {
@@ -58,14 +80,26 @@ export class PrincipalPage implements OnInit {
 
   addToCart(product: any) {
     if (product.selectedQuantity > 0) {
-      const productToCart = {
-        ...product,
-        cantidadSeleccionada: product.selectedQuantity
-      };
       const storedProducts = localStorage.getItem('selectedProducts');
       const selectedProducts = storedProducts ? JSON.parse(storedProducts) : [];
-      selectedProducts.push(productToCart);
+      const existingProduct = selectedProducts.find((p: any) => p.id === product.id);
+
+      if (existingProduct) {
+        if (existingProduct.cantidadSeleccionada + product.selectedQuantity <= product.cantidad) {
+          existingProduct.cantidadSeleccionada += product.selectedQuantity;
+        } else {
+          alert('No se puede agregar más del stock disponible.');
+        }
+      } else {
+        const productToCart = {
+          ...product,
+          cantidadSeleccionada: product.selectedQuantity
+        };
+        selectedProducts.push(productToCart);
+      }
+
       localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+      product.selectedQuantity = 0;
       this.router.navigate(['/cart']);
     } else {
       alert('Por favor, seleccione una cantidad válida.');
@@ -75,4 +109,43 @@ export class PrincipalPage implements OnInit {
   verCarrito() {
     this.router.navigate(['/cart']);
   }
+
+  ordenarProductos(criterio: string) {
+    switch (criterio) {
+      case 'name_asc':
+        this.filteredProductos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        break;
+      case 'name_desc':
+        this.filteredProductos.sort((a, b) => b.nombre.localeCompare(a.nombre));
+        break;
+      case 'price_asc':
+        this.filteredProductos.sort((a, b) => a.precio - b.precio);
+        break;
+      case 'price_desc':
+        this.filteredProductos.sort((a, b) => b.precio - a.precio);
+        break;
+      // Añadir más casos de ordenamiento según sea necesario
+    }
+  }
+
+  buscarProducto() {
+    const query = this.searchQuery.toLowerCase();
+    
+    if (query.trim() === '') {
+      // Si la búsqueda está vacía, restaurar los productos originales
+      this.productos = this.productos;
+    } else {
+      // Filtrar los productos según la búsqueda
+      this.productos = this.productos.filter(producto =>
+        producto.nombre.toLowerCase().includes(query) ||
+        producto.descripcion.toLowerCase().includes(query)
+      );
+    }
+  }
+  limpiarBusqueda() {
+    this.cargarClientes();
+    this.obtenerProductos(); 
+    this.searchQuery = ''; 
+  }
+
 }

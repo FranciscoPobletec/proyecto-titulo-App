@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+</ion-header>
+<ion-content>
+  <ion-card *ngIf="usuario">
+    <ion-card-header>
+      <ion-title>Información Personal</ion-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="full">
+        <ion-item>
+          <ion-label position="stacked">Nombre de usuario:</ion-label>
+          <ion-text>{{ usuario.username }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Correo electrónico:</ion-label>
+          <ion-text>{{ usuario.email }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Nombre:</ion-label>
+          <ion-text>{{ usuario.first_name }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Apellido Paterno:</ion-label>
+          <ion-text>{{ usuario.last_name }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Apellido Materno:</ion-label>
+          <ion-text>{{ usuario.apellido_materno }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Dirección:</ion-label>
+          <ion-text>{{ usuario.direccion }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Comuna:</ion-label>
+          <ion-text>{{ usuario.comuna }}</ion-text>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-button expand="block" (click)="volver()">Volver</ion-button>
+</ion-content>

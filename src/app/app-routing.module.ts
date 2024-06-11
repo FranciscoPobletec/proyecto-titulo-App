@@ -29,6 +29,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'perfil',
+    redirectTo: 'perfil',
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     redirectTo: 'e404',
     pathMatch: 'full'
@@ -52,6 +57,10 @@ const routes: Routes = [
   {
     path: 'cart',
     loadChildren: () => import('./pages/cart/cart.module').then( m => m.CartPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
 ];
 

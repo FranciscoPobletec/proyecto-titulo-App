@@ -1,57 +1,58 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar class="degradado">
         <ion-title>Registro</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="degradado">
-    <form (ngSubmit)="registrar()">
-        <ion-item>
-            <ion-label position="floating">Nombre de usuario</ion-label>
-            <ion-input [(ngModel)]="usuario.username" name="username" required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input [(ngModel)]="usuario.email" name="email" type="email" required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Contraseña</ion-label>
-            <ion-input [(ngModel)]="usuario.password1" name="password1" type="password" required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Confirmar Contraseña</ion-label>
-            <ion-input [(ngModel)]="usuario.password2" name="password2" type="password" required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Nombre</ion-label>
-            <ion-input [(ngModel)]="usuario.first_name" name="first_name"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Apellido Paterno</ion-label>
-            <ion-input [(ngModel)]="usuario.last_name" name="last_name"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Apellido Materno</ion-label>
-            <ion-input [(ngModel)]="usuario.apellido_materno" name="apellido_materno"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Dirección</ion-label>
-            <ion-input [(ngModel)]="usuario.direccion" name="direccion"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Comuna</ion-label>
-            <ion-select [(ngModel)]="usuario.comuna" name="comuna">
-                <ion-select-option *ngFor="let comuna of comunas" [value]="comuna.nombre">{{ comuna }}</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">RUT</ion-label>
-            <ion-input [(ngModel)]="usuario.rut" name="rut"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Teléfono</ion-label>
-            <ion-input [(ngModel)]="usuario.phone" name="phone"></ion-input>
-        </ion-item>
-        <ion-button expand="block" type="submit">Registrar</ion-button>
-    </form>
+    <ion-card>
+        <ion-card-content class="form-content">
+            <form (ngSubmit)="registrar()">
+                <ion-item>
+                    <ion-label position="floating">Nombre de usuario</ion-label>
+                    <ion-input [(ngModel)]="usuario.username" name="username" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input [(ngModel)]="usuario.email" name="email" type="email" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Contraseña</ion-label>
+                    <ion-input [(ngModel)]="usuario.password1" name="password1" type="password" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Confirmar Contraseña</ion-label>
+                    <ion-input [(ngModel)]="usuario.password2" name="password2" type="password" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Nombre</ion-label>
+                    <ion-input [(ngModel)]="usuario.first_name" name="first_name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Apellido Paterno</ion-label>
+                    <ion-input [(ngModel)]="usuario.last_name" name="last_name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Apellido Materno</ion-label>
+                    <ion-input [(ngModel)]="usuario.apellido_materno" name="apellido_materno"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Dirección</ion-label>
+                    <ion-input [(ngModel)]="usuario.direccion" name="direccion"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Comuna</ion-label>
+                    <ion-select [(ngModel)]="usuario.comuna" name="comuna">
+                        <ion-select-option *ngFor="let comuna of comunas" [value]="comuna.nombre">{{ comuna }}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">RUT</ion-label>
+                    <ion-input [(ngModel)]="usuario.rut" name="rut"></ion-input>
+                </ion-item>
+                <ion-button expand="block" type="submit">Registrar</ion-button>
+                <ion-button expand="block" type="button" (click)="volver()">Volver</ion-button>
+            </form>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

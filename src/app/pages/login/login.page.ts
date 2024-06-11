@@ -1,52 +1,99 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario-service.service';
+import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
   mdl_usuario: string = '';
   mdl_contrasena: string = '';
   isAlertOpen: boolean = false;
   alertHeader: string = '';
   alertMessage: string = '';
 
+  constructor(
+    private router: Router, 
+    private usuarioService: UsuarioService, 
+    private alertController: AlertController,
+    private menuController: MenuController
+  ) {}
 
-  constructor(private router: Router, private usuarioService: UsuarioService) {}
+  ngOnInit() {
+    this.menuController.enable(false);
+  }
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.menuController.enable(true);
+  }
 
   async login() {
+    if (!this.mdl_usuario || !this.mdl_contrasena) {
+      this.mostrarErrorCamposIncompletos();
+      return; 
+    }
+
     try {
       const response = await this.usuarioService.login(this.mdl_usuario, this.mdl_contrasena);
       if (response.token && response.user) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify(response.user));
-        this.router.navigate(['/principal']);
+        this.mostrarMensajeIngresoCorrecto();
       } else {
-        console.error('Error en inicio de sesión: Datos de usuario no válidos');
-        this.isAlertOpen = true;
+        this.mostrarErrorClaveUsuarioIncorrecto();
       }
     } catch (error) {
       console.error('Error en inicio de sesión:', error);
-      this.isAlertOpen = true;
+      this.mostrarErrorClaveUsuarioIncorrecto();
+      this.mostrarErrorGenerico();
     }
   }
-  
-  
-  mostrarAlerta(header: string, message: string) {
-    this.isAlertOpen = true;
-    this.alertHeader = header;
-    this.alertMessage = message;
+
+  async mostrarErrorCamposIncompletos() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Por favor complete todos los campos',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
-  setOpen(isOpen: boolean) {
-    this.isAlertOpen = isOpen;
+
+  async mostrarErrorClaveUsuarioIncorrecto() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Clave o usuario incorrecto',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async mostrarErrorGenerico() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Ocurrió un error inesperado. Por favor, intente de nuevo más tarde.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async mostrarMensajeIngresoCorrecto() {
+    const alert = await this.alertController.create({
+      header: 'Éxito',
+      message: 'Ingreso correcto. Redirigiendo...',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    setTimeout(() => {
+      alert.dismiss();
+      this.router.navigate(['/principal']);
+    }, 10000);  // 10 segundos
   }
 }
-
-
-

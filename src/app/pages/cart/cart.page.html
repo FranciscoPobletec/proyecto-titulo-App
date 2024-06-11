@@ -26,7 +26,19 @@
               <ion-card-content>
                 <p><strong>Descripción:</strong> {{ product.descripcion }}</p>
                 <p><strong>Cantidad seleccionada:</strong> {{ product.cantidadSeleccionada }}</p>
-                <p><strong>Precio:</strong> {{ product.precio }}</p>
+                <p><strong>Precio unitario :</strong> {{ product.precio | number:'1.0-2' }}</p>
+                <p><strong>Precio total:</strong> {{ (product.precio * product.cantidadSeleccionada) | number:'1.0-2' }}</p>
+
+                <div *ngIf="editingProductId === product.id">
+                  <ion-button (click)="decrementQuantity(product)" [disabled]="product.cantidadSeleccionada <= 1">-</ion-button>
+                  <span>{{ product.cantidadSeleccionada }}</span>
+                  <ion-button (click)="incrementQuantity(product)" [disabled]="product.cantidadSeleccionada >= product.cantidad">+</ion-button>
+                  <ion-button (click)="stopEditing()">Guardar</ion-button>
+                </div>
+                <div *ngIf="editingProductId !== product.id">
+                  <ion-button (click)="startEditing(product.id)">Editar</ion-button>
+                  <ion-button color="danger" (click)="removeProduct(product.id)">Eliminar</ion-button>
+                </div>
               </ion-card-content>
             </ion-col>
           </ion-row>
@@ -34,6 +46,9 @@
       </ion-card>
     </ion-item>
   </ion-list>
-  <ion-button expand="full" >Confirmar Reserva</ion-button>
-  <ion-button expand="full" (click)="clearCart()">Vaciar carrito</ion-button>
+  <ion-item>
+    <p><strong>Precio Total del Carrito:</strong> {{ getTotalPrice() | number:'1.0-2' }}</p>
+  </ion-item>
+  <ion-button expand="full" (click)="confirmCart()">Confirmar Reserva</ion-button>
+  <ion-button expand="full" color="danger" (click)="clearCart()">Vaciar carrito</ion-button>
 </ion-content>
