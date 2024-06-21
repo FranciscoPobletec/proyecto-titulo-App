@@ -45,7 +45,10 @@ export class MenuComponent implements OnInit {
     this.router.navigateByUrl('/cart', { replaceUrl: true });
     this.actualizarMenu();
   }
-
+  verClave() {
+    this.router.navigateByUrl('/change-password', { replaceUrl: true });
+    this.actualizarMenu();
+  }
   desconectar() {
     this.dbService.eliminarSesion();
     this.menuController.close();

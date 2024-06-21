@@ -1,5 +1,5 @@
 {
-  "name": "app-hayPan",
+  "name": "app-haypan",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -62,5 +62,7 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.2.2"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "main": "karma.conf.js",
+  "license": "ISC"
 }

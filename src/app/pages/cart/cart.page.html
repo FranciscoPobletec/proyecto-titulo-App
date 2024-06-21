@@ -1,18 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="degradado">
+    <ion-title class="title-white">Cart</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button class="title-white"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title-white">Carrito</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true" class="degradado">
   <ion-list class="card-transparente">
     <ion-item>
       Usuario: {{ usuario }}
     </ion-item>
     <ion-item *ngFor="let product of selectedProducts">
-      <ion-card class="card-transparente">
+      <ion-card class="card-transparente card-producto">
         <ion-grid>
           <ion-row>
             <ion-col size="3">
@@ -45,12 +46,14 @@
       </ion-card>
     </ion-item>
   </ion-list>
+  
   <ion-item>
     <p><strong>Precio Total del Carrito:</strong> {{ getTotalPrice() | number:'1.0-2' }}</p>
   </ion-item>
   
-  <div class="ion-text-center ion-margin-vertical">
-    <ion-button expand="full" class="input-amarillo" (click)="confirmCart()">Confirmar Reserva</ion-button>
-    <ion-button expand="full" class="input-verde" (click)="clearCart()">Vaciar carrito</ion-button>
+  <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+    <ion-button expand="full" class="input-amarillo boton" (click)="confirmCart()" shape="round">Confirmar Reserva</ion-button>
+    <ion-button expand="full" class="input-verde boton" (click)="clearCart()" shape="round">Vaciar carrito</ion-button>
   </div>
+  
 </ion-content>

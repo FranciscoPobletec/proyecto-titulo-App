@@ -48,11 +48,11 @@
       <ion-label color="danger">{{ error }}</ion-label>
     </ion-item>
 
-    <ion-button expand="full" class="input-amarillo ion-align-items-center" *ngIf="!estadoCanceladoCliente" (click)="cancelarReserva()">
+    <ion-button expand="full" class="input-amarillo ion-align-items-center" *ngIf="!estadoCanceladoCliente" (click)="cancelarReserva()"shape="round">
       <ion-label>Cancelar Reserva</ion-label>
     </ion-button>
     
-    <ion-button expand="full" class="input-verde ion-align-items-center" *ngIf="estadoCanceladoCliente" (click)="volver()">
+    <ion-button expand="full" class="input-verde ion-align-items-center" *ngIf="estadoCanceladoCliente" (click)="volver()"shape="round">
       <ion-label>Volver</ion-label>
     </ion-button>
     

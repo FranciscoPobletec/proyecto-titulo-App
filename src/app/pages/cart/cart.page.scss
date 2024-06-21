@@ -8,10 +8,14 @@
   }
   
   .card-transparente {
-    background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
-    margin: 16px; /* Margen alrededor de la tarjeta */
-    border-radius: 10px; /* Bordes redondeados */
-    backdrop-filter: blur(5px); /* Opcional: agrega un efecto de desenfoque */
-    padding: 16px; /* Padding dentro de la tarjeta */
+    background: rgba(255, 255, 255, 0.8); 
+    margin: 16px; 
+    border-radius: 10px; 
+    backdrop-filter: blur(5px); 
+    padding: 16px;
   }
   
+  .card-producto {
+    height: 200px;
+    margin-bottom: 10px; 
+  }

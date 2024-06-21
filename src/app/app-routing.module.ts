@@ -44,6 +44,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
  
+ 
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
@@ -82,6 +83,7 @@ const routes: Routes = [
     redirectTo: 'e404',
     pathMatch: 'full'
   },
+  
 ];
 
 @NgModule({
