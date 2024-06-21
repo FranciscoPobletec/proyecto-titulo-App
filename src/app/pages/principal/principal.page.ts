@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductoService } from 'src/app/services/producto.service';
 import { UsuarioService } from 'src/app/services/usuario-service.service';
-
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.page.html',
@@ -15,11 +15,12 @@ export class PrincipalPage implements OnInit {
   usuario: string = '';
   token: string = '';
   color: string = 'light';
-
+  starHover: number = 0; 
   constructor(
     private router: Router,
     private productoService: ProductoService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -34,7 +35,7 @@ export class PrincipalPage implements OnInit {
   }
   actualizarPrincipal() {
     this.obtenerProductos();
-    this.cargarClientes();
+
   }
   getStockOptions(stock: number): number[] {
     return Array.from({ length: stock }, (_, i) => i + 1);
@@ -44,7 +45,7 @@ export class PrincipalPage implements OnInit {
     this.productoService.obtenerProductos(this.token).subscribe(
       (data: any) => {
         this.productos = data;
-        this.filteredProductos = data; 
+        this.filteredProductos = data; // Inicialmente mostrar todos los productos
       },
       (error) => {
         console.error('Error al obtener productos:', error);
@@ -55,20 +56,6 @@ export class PrincipalPage implements OnInit {
     );
   }
 
-  cargarClientes() {
-    this.usuarioService.obtenerUsuarios().then(
-      (usuarios: any[]) => {
-        const clientes = usuarios.filter((usuario) => usuario.cliente);
-        localStorage.setItem('clientes', JSON.stringify(clientes));
-      },
-      (error) => {
-        console.error('Error al obtener usuarios:', error);
-        if (error.status === 401) {
-          this.router.navigate(['/login']);
-        }
-      }
-    );
-  }
 
   fav() {
     if (this.color == 'light') {
@@ -76,6 +63,16 @@ export class PrincipalPage implements OnInit {
     } else {
       this.color = 'light';
     }
+  }
+
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Notificación',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
   addToCart(product: any) {
@@ -87,8 +84,9 @@ export class PrincipalPage implements OnInit {
       if (existingProduct) {
         if (existingProduct.cantidadSeleccionada + product.selectedQuantity <= product.cantidad) {
           existingProduct.cantidadSeleccionada += product.selectedQuantity;
+          this.presentAlert('Producto agregado al carrito.');
         } else {
-          alert('No se puede agregar más del stock disponible.');
+          this.presentAlert('No se puede agregar más del stock disponible.');
         }
       } else {
         const productToCart = {
@@ -96,18 +94,21 @@ export class PrincipalPage implements OnInit {
           cantidadSeleccionada: product.selectedQuantity
         };
         selectedProducts.push(productToCart);
+        this.presentAlert('Producto agregado al carrito.');
       }
 
       localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
       product.selectedQuantity = 0;
       this.router.navigate(['/cart']);
     } else {
-      alert('Por favor, seleccione una cantidad válida.');
+      this.presentAlert('Por favor, seleccione una cantidad válida.');
     }
   }
 
+
+
   verCarrito() {
-    this.router.navigate(['/cart']);
+    this.router.navigate(['/principal']);
   }
 
   ordenarProductos(criterio: string) {
@@ -124,7 +125,6 @@ export class PrincipalPage implements OnInit {
       case 'price_desc':
         this.filteredProductos.sort((a, b) => b.precio - a.precio);
         break;
-      // Añadir más casos de ordenamiento según sea necesario
     }
   }
 
@@ -132,10 +132,8 @@ export class PrincipalPage implements OnInit {
     const query = this.searchQuery.toLowerCase();
     
     if (query.trim() === '') {
-      // Si la búsqueda está vacía, restaurar los productos originales
       this.productos = this.productos;
     } else {
-      // Filtrar los productos según la búsqueda
       this.productos = this.productos.filter(producto =>
         producto.nombre.toLowerCase().includes(query) ||
         producto.descripcion.toLowerCase().includes(query)
@@ -143,9 +141,10 @@ export class PrincipalPage implements OnInit {
     }
   }
   limpiarBusqueda() {
-    this.cargarClientes();
     this.obtenerProductos(); 
     this.searchQuery = ''; 
   }
-
+  setRating(producto: any, rating: number) {
+    producto.rating = rating;
+  }
 }

@@ -1,8 +1,8 @@
 <ion-header>
     <ion-toolbar class="degradado">
-        <ion-title>Registro</ion-title>
+      <ion-title class="title-white">Registro</ion-title>
     </ion-toolbar>
-</ion-header>
+  </ion-header>
 
 <ion-content [fullscreen]="true" class="degradado">
     <ion-card>
@@ -18,7 +18,7 @@
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating">Contraseña</ion-label>
-                    <ion-input [(ngModel)]="usuario.password1" name="password1" type="password" required></ion-input>
+                    <ion-input [(ngModel)]="usuario.password" name="password" type="password" required></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating">Confirmar Contraseña</ion-label>
@@ -47,11 +47,17 @@
                     </ion-select>
                 </ion-item>
                 <ion-item>
-                    <ion-label position="floating">RUT</ion-label>
+                    <ion-label position="floating">Telefono</ion-label>
                     <ion-input [(ngModel)]="usuario.rut" name="rut"></ion-input>
                 </ion-item>
-                <ion-button expand="block" type="submit">Registrar</ion-button>
-                <ion-button expand="block" type="button" (click)="volver()">Volver</ion-button>
+                <ion-item>
+                    <ion-label position="floating">RUT</ion-label>
+                    <ion-input [(ngModel)]="usuario.phone" name="phone"></ion-input>
+                </ion-item>
+                <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+    <ion-button expand="block" type="submit" class="input-amarillo boton" style="max-width: 150px;" (click)="registrar()">Registrar</ion-button>
+    <ion-button expand="block" type="button" class="input-verde boton" style="max-width: 150px;" (click)="volver()">Volver</ion-button>
+  </div>
             </form>
         </ion-card-content>
     </ion-card>

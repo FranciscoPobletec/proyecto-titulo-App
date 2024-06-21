@@ -1,19 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Carrito</ion-title>
+<ion-header [translucent]="true">
+  <ion-toolbar class="degradado">
+    <ion-buttons slot="start">
+      <ion-menu-button class="title-white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title-white">Carrito</ion-title>
   </ion-toolbar>
-  <ion-buttons slot="start">
-    <ion-menu-button></ion-menu-button>
-  </ion-buttons>
 </ion-header>
-
-<ion-content>
-  <ion-list>
+<ion-content [fullscreen]="true" class="degradado">
+  <ion-list class="card-transparente">
     <ion-item>
       Usuario: {{ usuario }}
     </ion-item>
     <ion-item *ngFor="let product of selectedProducts">
-      <ion-card>
+      <ion-card class="card-transparente">
         <ion-grid>
           <ion-row>
             <ion-col size="3">
@@ -26,7 +25,7 @@
               <ion-card-content>
                 <p><strong>Descripción:</strong> {{ product.descripcion }}</p>
                 <p><strong>Cantidad seleccionada:</strong> {{ product.cantidadSeleccionada }}</p>
-                <p><strong>Precio unitario :</strong> {{ product.precio | number:'1.0-2' }}</p>
+                <p><strong>Precio unitario:</strong> {{ product.precio | number:'1.0-2' }}</p>
                 <p><strong>Precio total:</strong> {{ (product.precio * product.cantidadSeleccionada) | number:'1.0-2' }}</p>
 
                 <div *ngIf="editingProductId === product.id">
@@ -49,6 +48,9 @@
   <ion-item>
     <p><strong>Precio Total del Carrito:</strong> {{ getTotalPrice() | number:'1.0-2' }}</p>
   </ion-item>
-  <ion-button expand="full" (click)="confirmCart()">Confirmar Reserva</ion-button>
-  <ion-button expand="full" color="danger" (click)="clearCart()">Vaciar carrito</ion-button>
+  
+  <div class="ion-text-center ion-margin-vertical">
+    <ion-button expand="full" class="input-amarillo" (click)="confirmCart()">Confirmar Reserva</ion-button>
+    <ion-button expand="full" class="input-verde" (click)="clearCart()">Vaciar carrito</ion-button>
+  </div>
 </ion-content>

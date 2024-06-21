@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
     { title: 'Principal', url: '/principal', icon: 'home' },
   ];
   usuario: string = '';
-  
+
   constructor(
     private router: Router, 
     private dbService: DbService,
@@ -23,30 +23,33 @@ export class MenuComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.actualizarMenu();
+  }
+
+  actualizarMenu() {
     const user = localStorage.getItem('user');
     this.usuario = user ? JSON.parse(user).username : '';
   }
 
   perfil() {
-    this.router.navigate(['perfil']);
+    this.router.navigateByUrl('/perfil', { replaceUrl: true });
+    this.actualizarMenu();
   }
 
   verHistorial() {
-    // Código para la función verHistorial
+    this.router.navigateByUrl('/historial', { replaceUrl: true });
+    this.actualizarMenu();
   }
 
   verCarrito() {
-    this.router.navigate(['cart']);
+    this.router.navigateByUrl('/cart', { replaceUrl: true });
+    this.actualizarMenu();
   }
 
   desconectar() {
     this.dbService.eliminarSesion();
-    let extras: NavigationExtras = {
-      replaceUrl: true
-    };
     this.menuController.close();
-    this.router.navigate(['login'], extras);
+    this.router.navigateByUrl('/login', { replaceUrl: true });
+    this.actualizarMenu();
   }
-  
- 
 }

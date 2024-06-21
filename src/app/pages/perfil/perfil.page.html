@@ -1,12 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Perfil</ion-title>
+<ion-header [translucent]="true">
+  <ion-toolbar class="degradado">
+    <ion-buttons slot="start">
+      <ion-menu-button class="title-white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title-white">Perfil</ion-title>
   </ion-toolbar>
-  <ion-buttons slot="start">
-    <ion-menu-button></ion-menu-button>
-  </ion-buttons>
 </ion-header>
-<ion-content>
+
+<ion-content [fullscreen]="true" class="degradado">
   <ion-card *ngIf="usuario">
     <ion-card-header>
       <ion-title>Información Personal</ion-title>
@@ -39,10 +40,15 @@
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Comuna:</ion-label>
-          <ion-text>{{ usuario.comuna }}</ion-text>
+          <ion-input readonly value="{{ comunaNombre }}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Teléfono:</ion-label>
+          <ion-text>{{ usuario.phone }}</ion-text>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <ion-button expand="block" (click)="volver()">Volver</ion-button>
+
+  <ion-button expand="block" class="input-verde ion-margin-top boton" (click)="volver()" style="margin: 0 auto;">Volver</ion-button>
 </ion-content>

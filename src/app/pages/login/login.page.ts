@@ -11,9 +11,6 @@ import { AlertController, MenuController } from '@ionic/angular';
 export class LoginPage implements OnInit, OnDestroy {
   mdl_usuario: string = '';
   mdl_contrasena: string = '';
-  isAlertOpen: boolean = false;
-  alertHeader: string = '';
-  alertMessage: string = '';
 
   constructor(
     private router: Router, 
@@ -50,8 +47,12 @@ export class LoginPage implements OnInit, OnDestroy {
       this.mostrarErrorClaveUsuarioIncorrecto();
       this.mostrarErrorGenerico();
     }
+    
   }
 
+
+
+  
   async mostrarErrorCamposIncompletos() {
     const alert = await this.alertController.create({
       header: 'Error',
@@ -94,6 +95,6 @@ export class LoginPage implements OnInit, OnDestroy {
     setTimeout(() => {
       alert.dismiss();
       this.router.navigate(['/principal']);
-    }, 10000);  // 10 segundos
+    }, 500);  
   }
 }

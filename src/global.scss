@@ -15,6 +15,7 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 body {
+    
     background-color: #12E5DF; /* Cambia 'green' al color verde deseado */
 }
 
@@ -36,11 +37,19 @@ body {
     font-weight: bold;
     --font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
-.degradado {
-    --background:#12E5DF;
-    --color: #FFFFFF;
-}
+.title-white {
+    color: #fff; /* Color blanco */
+  }
+  .degradado {
+    --background: url('/assets/hay_pan.webp') center;
+    background-size: cover; /* La imagen se ajustará manteniendo la relación de aspecto y cubriendo el contenedor */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Toma el 100% del contenedor padre */
+    padding: 16px;
+    overflow: hidden; /* Evita que la imagen se desborde del contenedor */
+  }
+  
 
 .centrado {
     margin-top: 20px;
@@ -51,14 +60,11 @@ body {
 
 /* Estilos de botones */
 
-.input-amarillo {
-    --background: #e5f835;
-    border-radius: 5px;
-}
+
 
 .input-cancelar {
     --background: #c53d3d;
-    border-radius: 5px;
+    border-radius: 10px;
     color: #FFFFFF;
 }
 
@@ -85,4 +91,41 @@ body {
     position: relative;
     z-index: 1; /* Asegura que el formulario esté encima de la imagen de fondo */
 }
-
+.input-amarillo {
+    --background: #ffc107;
+    --color: #000;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    --border-radius: 10px;
+    width: 100%;
+    max-width: 300px; /* Ajusta este valor según sea necesario */
+    box-sizing: border-box;
+    height: 48px; /* Ajusta este valor según sea necesario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .input-verde {
+    --background: #20d46b;
+    --color: #000;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    --border-radius: 10px;
+    width: 100%;
+    max-width: 300px; /* Ajusta este valor según sea necesario */
+    box-sizing: border-box;
+    height: 48px; /* Ajusta este valor según sea necesario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  .boton {
+    margin-top: 20px;
+  }
+  

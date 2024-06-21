@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="degradado">
+    <ion-buttons slot="start">
+      <ion-menu-button class="title-white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title-white">Detalle de Reserva</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="degradado">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Detalle de Reserva</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card class="card-transparente">
+    <ion-list *ngIf="detallesReserva && detallesReserva.length > 0">
+      <ion-item>
+        <ion-label>Número de Reserva:</ion-label>
+        <ion-label>{{ reserva.numeroOrden }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Estado:</ion-label>
+        <ion-label>{{ obtenerEstadoNombre(reserva.estado) }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Cliente:</ion-label>
+        <ion-label>{{ cliente?.username }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Local:</ion-label>
+        <ion-label>{{ local?.nombre }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Dirección Local:</ion-label>
+        <ion-label>{{ local?.direccion }}</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let detalle of detallesReserva">
+        <ion-label>
+          <h2>Producto: {{ producto?.nombre }}</h2>
+          <p>Cantidad: {{ detalle.cantidad }}</p>
+          <p>Precio Unitario: {{ detalle.precio_unitario }}</p>
+          <p>Total: {{ detalle.total }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-item *ngIf="error">
+      <ion-label color="danger">{{ error }}</ion-label>
+    </ion-item>
+
+    <ion-button expand="full" class="input-amarillo ion-align-items-center" *ngIf="!estadoCanceladoCliente" (click)="cancelarReserva()">
+      <ion-label>Cancelar Reserva</ion-label>
+    </ion-button>
+    
+    <ion-button expand="full" class="input-verde ion-align-items-center" *ngIf="estadoCanceladoCliente" (click)="volver()">
+      <ion-label>Volver</ion-label>
+    </ion-button>
+    
+  </ion-card>
+</ion-content>

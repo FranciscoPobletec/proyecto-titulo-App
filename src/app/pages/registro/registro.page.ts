@@ -12,8 +12,7 @@ export class RegistroPage implements OnInit {
   usuario: any = {
     username: '',
     email: '',
-    password1: '',
-    password2: '',
+    password: '',
     first_name: '',
     last_name: '',
     apellido_materno: '',
@@ -79,8 +78,7 @@ export class RegistroPage implements OnInit {
     return (
       this.usuario.username &&
       this.usuario.email &&
-      this.usuario.password1 &&
-      this.usuario.password2 &&
+      this.usuario.password &&
       this.usuario.first_name &&
       this.usuario.last_name &&
       this.usuario.apellido_materno &&
@@ -92,7 +90,7 @@ export class RegistroPage implements OnInit {
   }
 
   passwordsSonIguales(): boolean {
-    return this.usuario.password1 === this.usuario.password2;
+    return this.usuario.password === this.usuario.password2;
   }
 
   async mostrarErrorCamposIncompletos() {
@@ -138,7 +136,7 @@ export class RegistroPage implements OnInit {
       setTimeout(() => {
         alert.dismiss();
         resolve();
-      }, 10000);  // 10 segundos
+      }, 300);  // 10 segundos
     });
   }
 }

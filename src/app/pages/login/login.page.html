@@ -1,12 +1,11 @@
 <ion-header [translucent]="true" >
   <ion-toolbar class="degradado">
-    <ion-title >Login</ion-title>
+    <ion-title class="title-white">Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="degradado">
   <div class="centrado">
-    <ion-img src="assets/hay_pan.svg"></ion-img>
 
     <ion-item class="fondo input ion-margin-top" lines="none">
       <ion-input label="Usuario" labelPlacement="floating" [(ngModel)]="mdl_usuario"></ion-input>
@@ -16,7 +15,7 @@
     </ion-item>
 
     <ion-button expand="block" class="input-amarillo ion-margin-top boton" (click)="login()">Ingresar</ion-button>
-    <ion-button expand="block" class="input-amarillo ion-margin-top boton" routerLink="/registro">Registrar</ion-button>
+    <ion-button expand="block" class="input-verde ion-margin-top boton" routerLink="/registro">Registrar</ion-button>
   
 
   </div>

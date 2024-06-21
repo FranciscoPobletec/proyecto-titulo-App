@@ -34,10 +34,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '**',
-    redirectTo: 'e404',
+    path: 'historial',
+    redirectTo: 'historial',
     pathMatch: 'full'
   },
+  {
+    path: 'detalle',
+    redirectTo: 'detalle',
+    pathMatch: 'full'
+  },
+ 
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
@@ -61,6 +67,20 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'historial',
+    loadChildren: () => import('./pages/historial/historial.module').then( m => m.HistorialPageModule)
+  },
+  {
+    path: 'detalle/:id',
+    loadChildren: () => import('./pages/detalle/detalle.module').then(m => m.DetallePageModule)
+  },
+  
+  {
+    path: '**',
+    redirectTo: 'e404',
+    pathMatch: 'full'
   },
 ];
 

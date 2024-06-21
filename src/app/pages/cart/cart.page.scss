@@ -1,0 +1,17 @@
+.degradado {
+    --background: url('/assets/hay_pan.webp')center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 16px;
+  }
+  
+  .card-transparente {
+    background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+    margin: 16px; /* Margen alrededor de la tarjeta */
+    border-radius: 10px; /* Bordes redondeados */
+    backdrop-filter: blur(5px); /* Opcional: agrega un efecto de desenfoque */
+    padding: 16px; /* Padding dentro de la tarjeta */
+  }
+  

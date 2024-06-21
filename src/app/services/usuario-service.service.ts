@@ -6,31 +6,33 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UsuarioService {
-  // Ruta para obtener el token de autenticación
-  ruta: string = 'http://127.0.0.1:8000/loginToken/';
-
-  // Ruta para obtener los detalles del usuario actualmente autenticado
-  usuarioRuta: string = 'http://127.0.0.1:8000/api/usuario/'; 
-
-  logoutRuta: string = 'http://127.0.0.1:8000/logoutToken/';
+  private ruta: string = 'http://127.0.0.1:8000/loginToken/';
+  private usuarioRuta: string = 'http://127.0.0.1:8000/api/usuario/'; 
+  private logoutRuta: string = 'http://127.0.0.1:8000/logoutToken/';
 
   constructor(private router: Router, private http: HttpClient) {}
 
-  // Método para realizar el inicio de sesión
   login(username: string, password: string): Promise<any> {
-    const credentials = {
-      username: username,
-      password: password
-    };
-
+    const credentials = { username, password };
     return this.http.post(this.ruta, credentials).toPromise();
   }
 
-  obtenerUsuarioAutenticado(token: string): Promise<any> {
+  async obtenerUsuarioAutenticado(token: string): Promise<any> {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
-    return this.http.get(this.usuarioRuta, { headers: headers }).toPromise();
+
+    try {
+      const response = await this.http.get(this.usuarioRuta, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      throw new Error('Error al obtener el usuario autenticado');
+    }
+  }
+
+  obtenerUsuarioPorId(userId: number, token: string): Promise<any> {
+    const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http.get(`${this.usuarioRuta}${userId}/`, { headers }).toPromise();
   }
 
   obtenerUsuarios(): Promise<any> {

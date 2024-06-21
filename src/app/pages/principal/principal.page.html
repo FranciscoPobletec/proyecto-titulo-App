@@ -1,7 +1,8 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar class="degradado">
+    <ion-title class="title-white">Principal</ion-title>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="title-white"></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="fav()">
@@ -12,16 +13,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="degradado">
-  <ion-card>
+  <ion-card class="form-card">
     <ion-card-content class="form-content">
-      <ion-item>
-        <ion-searchbar [(ngModel)]="searchQuery" >
-          <ion-buttons slot="end">
-            <ion-button (click)="buscarProducto()">Buscar</ion-button>
-            <ion-button (click)="limpiarBusqueda()">Limpiar</ion-button>
-          </ion-buttons>
-        </ion-searchbar>
-      </ion-item>
+      <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="buscarProducto()" (ionClear)="limpiarBusqueda()"></ion-searchbar>
+      
       <ion-item>
         <ion-label>Ordenar por:</ion-label>
         <ion-select (ionChange)="ordenarProductos($event.target.value)">
@@ -31,6 +26,7 @@
           <ion-select-option value="price_desc">Precio (Mayor a Menor)</ion-select-option>
         </ion-select>
       </ion-item>
+      
       <ion-list>
         <ion-item *ngFor="let producto of productos">
           <ion-card>
@@ -47,13 +43,22 @@
                     <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
                     <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
                     <p><strong>Precio:</strong> {{ producto.precio | number:'1.0-2' }}</p>
+                    <p><strong>Calificación:</strong></p>
+                    <!-- Estrellas para la calificación -->
+                    <div class="rating">
+                      <ion-icon name="star" [color]="producto.rating >= 1 ? 'danger' : 'medium'" (mouseenter)="starHover = 1" (mouseleave)="starHover = 0" (click)="setRating(producto, 1)"></ion-icon>
+                      <ion-icon name="star" [color]="producto.rating >= 2 ? 'danger' : 'medium'" (mouseenter)="starHover = 2" (mouseleave)="starHover = 0" (click)="setRating(producto, 2)"></ion-icon>
+                      <ion-icon name="star" [color]="producto.rating >= 3 ? 'danger' : 'medium'" (mouseenter)="starHover = 3" (mouseleave)="starHover = 0" (click)="setRating(producto, 3)"></ion-icon>
+                      <ion-icon name="star" [color]="producto.rating >= 4 ? 'danger' : 'medium'" (mouseenter)="starHover = 4" (mouseleave)="starHover = 0" (click)="setRating(producto, 4)"></ion-icon>
+                      <ion-icon name="star" [color]="producto.rating >= 5 ? 'danger' : 'medium'" (mouseenter)="starHover = 5" (mouseleave)="starHover = 0" (click)="setRating(producto, 5)"></ion-icon>
+                    </div>
+                    
                     <p><strong>Cantidad:</strong>
                       <ion-select [(ngModel)]="producto.selectedQuantity" placeholder="Seleccionar cantidad">
-                        <ion-select-option *ngFor="let cantidad of getStockOptions(producto.cantidad)"
-                          [value]="cantidad">{{ cantidad }}</ion-select-option>
+                        <ion-select-option *ngFor="let cantidad of getStockOptions(producto.cantidad)" [value]="cantidad">{{ cantidad }}</ion-select-option>
                       </ion-select>
                     </p>
-                    <ion-button (click)="addToCart(producto)">Agregar al carrito</ion-button>
+                    <ion-button class="input-amarillo ion-margin-top boton" (click)="addToCart(producto)">Agregar al carrito</ion-button>
                   </ion-card-content>
                 </ion-col>
               </ion-row>
@@ -61,6 +66,7 @@
           </ion-card>
         </ion-item>
       </ion-list>
+      
     </ion-card-content>
   </ion-card>
 </ion-content>

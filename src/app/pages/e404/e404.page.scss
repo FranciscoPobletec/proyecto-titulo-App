@@ -1,0 +1,46 @@
+.degradado {
+    --background: url('/assets/hay_pan.webp')  center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+  
+  .centrado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .fondo {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .input-amarillo {
+    --background: #ffc107;
+    --color: #000;
+  }
+  
+  .boton {
+    margin-top: 20px;
+  }
+  
+  
+  
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 16px; /* Espacio alrededor del contenido */
+  }
+  
+  .buton-confirmar {
+    margin-bottom: 20px; /* Espacio desde el borde inferior */
+    --background: #3880ff; /* Color del fondo del botón */
+    --color: #fff; /* Color del texto e icono */
+  }
+  

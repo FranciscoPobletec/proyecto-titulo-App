@@ -1,0 +1,59 @@
+.degradado {
+  --background: url('/assets/hay_pan.webp')center ;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+  ion-card {
+    background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para el card */
+    margin: 16px; /* Margen alrededor del card */
+    border-radius: 10px; /* Bordes redondeados */
+    backdrop-filter: blur(5px); /* Opcional: agrega un efecto de desenfoque */
+  }
+  
+  .form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espacio entre los elementos del formulario */
+    padding: 16px; /* Padding dentro del form-content */
+  }
+  
+  .input-amarillo {
+    --background: #ffc107;
+    --color: #000;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    --border-radius: 10px;
+    width: 100%;
+    max-width: 300px; /* Ajusta este valor según sea necesario */
+    box-sizing: border-box;
+    height: 48px; /* Ajusta este valor según sea necesario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .input-verde {
+    --background: #20d46b;
+    --color: #000;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    --border-radius: 10px;
+    width: 100%;
+    max-width: 300px; /* Ajusta este valor según sea necesario */
+    box-sizing: border-box;
+    height: 48px; /* Ajusta este valor según sea necesario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .boton {
+    margin-top: 20px;
+  }
+  .title-white {
+    color: #fff; /* Color blanco */
+  }

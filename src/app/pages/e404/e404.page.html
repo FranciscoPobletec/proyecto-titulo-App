@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>No encontrado</ion-title>
+  <ion-toolbar class="degradado">
+    <ion-title class="title-white">No encontrado</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="degradado">
-  <ion-img src="assets/hay_pan.svg"></ion-img>
-
-  <ion-button expand="block" class="ion-margin-top buton-confirmar" (click)="volver()"><ion-icon name="home" ></ion-icon>
-    Volver al Login</ion-button>
-
+  <div class="content-wrapper">
+    <ion-button expand="block" class=" input-amarillo ion-margin-top " (click)="volver()">
+      <ion-icon name="home"></ion-icon> Volver al Login
+    </ion-button>
+  </div>
 </ion-content>

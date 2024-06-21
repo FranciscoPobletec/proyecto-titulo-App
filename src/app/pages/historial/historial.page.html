@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="degradado">
+    <ion-buttons slot="start">
+      <ion-menu-button class="title-white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title-white">Historial de Reservas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="degradado">
+  <ion-list class="card-transparente">
+    <!-- Verificar si hay reservas para mostrar -->
+    <ng-container *ngIf="reservas && reservas.length > 0; else noReservas">
+      <ion-card class="card-transparente" *ngFor="let reserva of reservas">
+        <ion-card-content>
+          <ion-item lines="none">
+            <ion-label class="center-content">
+              <h2>Reserva ID: {{ reserva.numeroOrden }}</h2>
+              <p>Fecha Inicio: {{ formatDate(reserva.fechaInicio) }}</p>
+              <p>Fecha Termino: {{ calcularFechaTermino(reserva.fechaInicio) }}</p>
+              <p>Local: {{ reserva.nombreLocal }}</p>
+              <p>Usuario Reservado: {{ reserva.nombreCliente }}</p>
+              <p>Estado: {{ reserva.estadoNombre }}</p>
+              <a [routerLink]="['/detalle', reserva.id]">Ver detalles</a>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <!-- Mostrar mensaje cuando no hay reservas -->
+    <ng-template #noReservas>
+      <div class="center-content">
+        <p>No tienes reservas realizadas.</p>
+        <!-- Puedes agregar aquí un botón o enlace para redirigir al usuario a otra parte de la aplicación -->
+      </div>
+    </ng-template>
+
+    <!-- Botón para volver -->
+    <ion-button expand="block" class="input-verde" (click)="volver()">
+      <ion-label>Volver</ion-label>
+    </ion-button>
+  </ion-list>
+</ion-content>
