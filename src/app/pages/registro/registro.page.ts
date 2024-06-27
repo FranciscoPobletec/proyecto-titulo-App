@@ -70,7 +70,6 @@ export class RegistroPage implements OnInit {
     } catch (error) {
       console.error('Error en el registro:', error);
       // Mostrar un mensaje de error al usuario
-      await this.mostrarErrorRegistro();
     }
   }
 
@@ -113,15 +112,6 @@ export class RegistroPage implements OnInit {
     return alert.present();
   }
 
-  async mostrarErrorRegistro() {
-    const alert = await this.alertController.create({
-      header: 'Error',
-      message: 'Error en el registro. Por favor, inténtelo nuevamente.',
-      buttons: ['OK']
-    });
-
-    return alert.present();
-  }
 
   async mostrarMensajeRegistroExitoso() {
     const alert = await this.alertController.create({

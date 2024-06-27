@@ -6,8 +6,8 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProductoService {
-  ruta: string = 'http://127.0.0.1:8000/api/producto/';
-  rutaLocal: string = 'http://127.0.0.1:8000/api/local/';
+  ruta: string = 'https://vecina-hay-pan.cl/api/producto/';
+  rutaLocal: string = 'https://vecina-hay-pan.cl/api/local/';
 
   constructor(private http: HttpClient) { }
 

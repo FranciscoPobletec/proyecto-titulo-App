@@ -7,8 +7,8 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ReservaService {
-  private ruta: string = 'http://127.0.0.1:8000/api/reserva';
-  private rutaDetalle: string = 'http://127.0.0.1:8000/api/detalleReserva/';
+  private ruta: string = 'https://vecina-hay-pan.cl/api/reserva';
+  private rutaDetalle: string = 'https://vecina-hay-pan.cl/api/detalleReserva/';
 
   constructor(private http: HttpClient) {}
   getReservas(): Observable<any[]> {

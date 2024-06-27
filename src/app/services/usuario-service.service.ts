@@ -6,16 +6,20 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private ruta: string = 'http://127.0.0.1:8000/loginToken/';
-  private usuarioRuta: string = 'http://127.0.0.1:8000/api/usuario/'; 
-  private logoutRuta: string = 'http://127.0.0.1:8000/logoutToken/';
+  private ruta: string = 'https://vecina-hay-pan.cl/loginToken/';
+  private usuarioRuta: string = 'https://vecina-hay-pan.cl/api/usuario/';
+  private logoutRuta: string = 'https://vecina-hay-pan.cl/logoutToken/';
 
   constructor(private router: Router, private http: HttpClient) {}
 
   login(username: string, password: string): Promise<any> {
     const credentials = { username, password };
-    return this.http.post(this.ruta, credentials).toPromise();
+    return this.http.post(this.ruta, credentials).toPromise()
+      .catch(error => {
+        throw new Error(`Error en inicio de sesión:, ${error.message}`);
+      });
   }
+  
 
   async obtenerUsuarioAutenticado(token: string): Promise<any> {
     const headers = new HttpHeaders({

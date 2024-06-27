@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RegistroService {
-  ruta: string = 'http://127.0.0.1:8000/api/usuario/';
-  rutaComunas: string = 'http://127.0.0.1:8000/api/comuna/';
+  ruta: string = 'https://vecina-hay-pan.cl/api/usuario/';
+  rutaComunas: string = 'https://vecina-hay-pan.cl/api/comuna/';
 
   constructor(private http: HttpClient) { }
 

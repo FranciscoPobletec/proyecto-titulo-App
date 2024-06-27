@@ -43,9 +43,8 @@ export class LoginPage implements OnInit, OnDestroy {
         this.mostrarErrorClaveUsuarioIncorrecto();
       }
     } catch (error) {
-      console.error('Error en inicio de sesión:', error);
+      console.error("Error en inicio de sesión:", JSON.stringify(error)); // Muestra el objeto de error completo
       this.mostrarErrorClaveUsuarioIncorrecto();
-      this.mostrarErrorGenerico();
     }
     
   }
@@ -73,15 +72,6 @@ export class LoginPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
-  async mostrarErrorGenerico() {
-    const alert = await this.alertController.create({
-      header: 'Error',
-      message: 'Ocurrió un error inesperado. Por favor, intente de nuevo más tarde.',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
 
   async mostrarMensajeIngresoCorrecto() {
     const alert = await this.alertController.create({
